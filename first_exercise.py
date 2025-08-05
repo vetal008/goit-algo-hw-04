@@ -36,6 +36,6 @@ def total_salary(path: Path):
         return None, None
 
 if __name__ == '__main__':  # Start script
-    first_exercise = Path('month_salar.txt')
+    first_exercise = Path('month_salary.txt')
     total, average = total_salary(first_exercise)
     print('Total sum of month salary is {}, average salary is {}'.format(total, average))
