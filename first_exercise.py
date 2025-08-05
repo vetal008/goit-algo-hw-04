@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-def total_salary(path: Path):
+def total_salary(path: Path) -> (float, float) or (None, None):
     """
     Main function which calculates the total salary
     and average salary from a given file.
