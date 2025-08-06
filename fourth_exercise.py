@@ -1,15 +1,15 @@
 from colorama import Fore, Style
 
-def user_input(mes_to_user: str):
+
+def user_input(mes_to_user):
     first_param, *args = input(mes_to_user).split()
     first_param = first_param.lower()
-    # print(first_param)
     return first_param, *args
+
 
 def add_contact(phone_numbers, *args):
     try:
         if not args[0].isalpha():
-            # print(args)
             return Fore.RED + 'Only alpha characters are allowed in [name].' + Style.RESET_ALL
         elif not args[1].isdigit():
             return Fore.RED + 'Only digit numbers are allowed in [phone].' + Style.RESET_ALL
@@ -20,7 +20,6 @@ def add_contact(phone_numbers, *args):
             return Fore.YELLOW + 'Contact added.' + Style.RESET_ALL
     except IndexError:
         return Fore.RED +  'Waiting for 2 params([name] [phone])' + Style.RESET_ALL
-
 
 
 def change_phone(phone_numbers, *args):
@@ -36,13 +35,8 @@ def change_phone(phone_numbers, *args):
         else:
             phone_numbers[args[0]] = int(args[1])
             return Fore.YELLOW + 'Contact changed.' + Style.RESET_ALL
-
     except IndexError:
         return Fore.RED + 'Waiting for 2 params([name] [new phone])' + Style.RESET_ALL
-
-# def show_phone(phone_numbers, *args):
-
-
 
 
 def remove_number(phone_numbers, *args):
@@ -53,6 +47,7 @@ def remove_number(phone_numbers, *args):
         return Fore.RED + 'Waiting for 1 param([name]).' + Style.RESET_ALL
     except KeyError:
         return Fore.RED + 'No contacts with that name.' + Style.RESET_ALL
+
 
 def help_command():
     help_message = Fore.YELLOW + "Use next commands:\n"  + Style.RESET_ALL + \
@@ -77,14 +72,6 @@ def main():
                 print(print_mes)
             case 'help':
                 print(help_command())
-                    # help_message = "Use next commands:\n\
-                    #     'add' to add a number.(add [name] [number])\n\
-                    #     'change' to change number.(change [name] [new number])\n\
-                    #     'phone' to get a phone number.(phone [name])\n\
-                    #     'all' to get all numbers.\n\
-                    #     'remove' to remove a number(remove [name]).\n\
-                    #     'close' or 'exit' or 'quit' to exit the bot."
-                    # print(help_message)
             case 'add':
                 print(add_contact(phone_numbers, *args))
             case 'change':
@@ -92,7 +79,6 @@ def main():
             case 'phone':
                 try:
                     print(f"{args[0]} number: {phone_numbers[args[0]]}")
-                    # return Fore.YELLOW + f"Contact '{args[0]}' deleted." + Style.RESET_ALL
                 except IndexError:
                     print(Fore.RED + 'Waiting for 1 param([name])' + Style.RESET_ALL)
                 except KeyError:
@@ -113,6 +99,6 @@ def main():
             case _:
                 print(Fore.RED + "Invalid command. Print 'help' for have some help" + Style.RESET_ALL)
 
+
 if __name__ == '__main__':
     main()
-
