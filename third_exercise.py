@@ -11,7 +11,7 @@ def get_directory_iteration(path: Path, tabs=0):
     :return: return nothing but print structure
     """
     try:
-        print(Fore.RED + '_' * tabs, str(path).split('\\')[-1], '\\' + Style.RESET_ALL, sep='')
+        print(Fore.RED + ' ' * tabs, str(path).split('\\')[-1], '\\' + Style.RESET_ALL, sep='')
         tabs = tabs + 1
         iter_dir = list(path.iterdir())
         if len(iter_dir) == 0: # if folder is empty
@@ -20,8 +20,8 @@ def get_directory_iteration(path: Path, tabs=0):
             for item in iter_dir:
                 if item.is_dir(): # for next iteration in child directory
                     get_directory_iteration(item, tabs)
-                else: # for any other files in folder
-                    print(Fore.BLUE + '_' * tabs, str(item).split('\\')[-1] + Style.RESET_ALL)
+                # else: # for any other files in folder
+                #     print(Fore.BLUE + '_' * tabs, str(item).split('\\')[-1] + Style.RESET_ALL)
     # Exceptions if folder is not exists or it`s a file
     except FileNotFoundError:
         print('No such file or directory')

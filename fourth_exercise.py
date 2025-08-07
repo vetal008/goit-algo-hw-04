@@ -6,6 +6,27 @@ def user_input(mes_to_user):
     first_param = first_param.lower()
     return first_param, *args
 
+def greeting():
+    print_mes = Fore.YELLOW +  "Hi! I`m a simple bot which works with phone numbers.\n\t" + Style.RESET_ALL +  "You can have some help: write 'help'"
+    return print_mes
+
+def get_phone(phone_numbers, *args):
+    try:
+        return f"{args[0]} number: {phone_numbers[args[0]]}"
+    except IndexError:
+        return Fore.RED + 'Waiting for 1 param([name])' + Style.RESET_ALL
+    except KeyError:
+        return Fore.RED + 'No contacts with that name.' + Style.RESET_ALL
+
+def get_all_phones(phone_numbers, *args):
+    try:
+        if phone_numbers:
+            return [x for x in phone_numbers.items()]
+        else:
+            return Fore.RED + 'No phone numbers found' + Style.RESET_ALL
+    except ValueError:
+        return Fore.RED + 'No phone numbers found' + Style.RESET_ALL
+
 
 def add_contact(phone_numbers, *args):
     try:
@@ -65,11 +86,9 @@ def main():
     print(Fore.BLUE + 'Welcome to my first bot!' + Style.RESET_ALL)
     while True:
         first_param, *args = user_input(Fore.BLUE + 'Enter a command: ' + Style.RESET_ALL)
-        # print(first_param, args)
         match first_param:
             case 'greeting':
-                print_mes = "Hi! I`m a simple bot which works with phone numbers.\nYou can have some help: write 'help'"
-                print(print_mes)
+                print(greeting())
             case 'help':
                 print(help_command())
             case 'add':
@@ -77,22 +96,11 @@ def main():
             case 'change':
                 print(change_phone(phone_numbers, *args))
             case 'phone':
-                try:
-                    print(f"{args[0]} number: {phone_numbers[args[0]]}")
-                except IndexError:
-                    print(Fore.RED + 'Waiting for 1 param([name])' + Style.RESET_ALL)
-                except KeyError:
-                    print(Fore.RED + 'No contacts with that name.' + Style.RESET_ALL)
+                print(get_phone(phone_numbers, *args))
             case 'remove':
                 print(remove_number(phone_numbers, *args))
             case 'all':
-                try:
-                    if phone_numbers:
-                        print(*phone_numbers.items(), sep='\n')
-                    else:
-                        print(Fore.RED + 'No phone numbers found' + Style.RESET_ALL)
-                except ValueError:
-                    print(Fore.RED + 'No phone numbers found' + Style.RESET_ALL)
+                print(*get_all_phones(phone_numbers, *args), sep='\n')
             case 'close' | 'exit' | 'quit':
                 print(Fore.YELLOW + 'Goodbye!' + Style.RESET_ALL)
                 break
